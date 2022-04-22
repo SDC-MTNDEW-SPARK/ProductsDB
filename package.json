@@ -1,0 +1,19 @@
+{
+  "name": "productsdb",
+  "version": "1.0.0",
+  "description": "SDC Database for products",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SDC-MTNDEW-SPARK/ProductsDB.git"
+  },
+  "author": "Andy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SDC-MTNDEW-SPARK/ProductsDB/issues"
+  },
+  "homepage": "https://github.com/SDC-MTNDEW-SPARK/ProductsDB#readme"
+}
