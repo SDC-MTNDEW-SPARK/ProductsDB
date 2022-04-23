@@ -27,7 +27,9 @@ const getProducts = (request, response) => {
 }
 
 const getCurrProduct = (request, response) => {
-  pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+  console.log(request.params)
+  const currId = parseInt(request.params.product_id);
+  pool.query(`SELECT * FROM products WHERE id = ${currId}`, (error, results) => {
     if (error) {
       throw error
     }
