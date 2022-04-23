@@ -21,7 +21,7 @@ const getProducts = (request, response) => {
   console.log(request.query)
   const page = parseInt(request.query.page) || 1;
   const count = parseInt(request.query.count) || 5;
-  pool.query(`SELECT * FROM products ORDER BY id ASC LIMIT ${page * count}`, (error, results) => {
+  pool.query(`SELECT * FROM products ORDER BY id OFFSET ${((page * count) - count)} ROWS FETCH FIRST ${count} ROW ONLY;`, (error, results) => {
     if (error) {
       throw error
     }
@@ -32,7 +32,7 @@ const getProducts = (request, response) => {
 const getCurrProduct = (request, response) => {
   console.log(request.params)
   const currId = parseInt(request.params.product_id);
-  pool.query(`SELECT * FROM products WHERE id = ${currId}`, (error, results) => {
+  pool.query(`SELECT * FROM products JOIN (select features.feature, features.value from features WHERE features.product_id = ${currId}) feature ON products.id = features.product_id WHERE products.id = ${currId};`, (error, results) => {
     if (error) {
       throw error
     }
@@ -42,7 +42,7 @@ const getCurrProduct = (request, response) => {
 
 const getCurrProductStyles = (request, response) => {
   const currId = parseInt(request.params.product_id);
-  pool.query(`SELECT * FROM styles WHERE product_id = ${currId}`, (error, results) => {
+  pool.query(`SELECT * FROM styles WHERE product_id = ${currId} `, (error, results) => {
     if (error) {
       throw error
     }
