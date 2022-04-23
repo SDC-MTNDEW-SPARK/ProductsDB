@@ -18,7 +18,10 @@ const pool = new Pool({
 // })
 
 const getProducts = (request, response) => {
-  pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+  console.log(request.query)
+  const page = parseInt(request.query.page) || 1;
+  const count = parseInt(request.query.count) || 5;
+  pool.query(`SELECT * FROM products ORDER BY id ASC LIMIT ${page * count}`, (error, results) => {
     if (error) {
       throw error
     }
@@ -38,7 +41,8 @@ const getCurrProduct = (request, response) => {
 }
 
 const getCurrProductStyles = (request, response) => {
-  pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+  const currId = parseInt(request.params.product_id);
+  pool.query(`SELECT * FROM styles WHERE product_id = ${currId}`, (error, results) => {
     if (error) {
       throw error
     }
@@ -47,7 +51,8 @@ const getCurrProductStyles = (request, response) => {
 }
 
 const getCurrProductRelated = (request, response) => {
-  pool.query('SELECT * FROM products ORDER BY id ASC', (error, results) => {
+  const currId = parseInt(request.params.product_id);
+  pool.query(`SELECT * FROM Related_Products WHERE curr_prod_id = ${currId}`, (error, results) => {
     if (error) {
       throw error
     }
