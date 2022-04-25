@@ -28,15 +28,17 @@ const getProducts = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
+// json_build_object('id', p.id, 'name', p.name, 'slogan', p.slogan, 'description', p.description, 'category', p.category, 'default_price', p.default_price, 'features', feature)
 
 const getCurrProduct = (request, response) => {
   console.log(request.params)
   const currId = parseInt(request.params.product_id);
-  pool.query(`SELECT * FROM products JOIN (select features.feature, features.value from features WHERE features.product_id = ${currId}) feature ON products.id = features.product_id WHERE products.id = ${currId};`, (error, results) => {
+  pool.query(`SELECT p.*, features FROM products p LEFT JOIN (select product_id, json_agg(json_build_object('feature', f.feature, 'value', f.value)) features from features f GROUP BY 1) f ON p.id = f.product_id WHERE p.id = ${currId};`
+  , (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).json(results.rows)
+    response.status(200).json(...results.rows)
   })
 }
 
