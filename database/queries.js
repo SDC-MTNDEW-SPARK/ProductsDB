@@ -66,12 +66,10 @@ async function getCurrProductStyles (currProd) {
   await Promise.all(returnObj.results.map(async (style) => {
     // console.log(style);
     const photos = await getPhotos(style.style_id);
-    console.log(photos);
     style.photos = photos;
   }));
   await Promise.all(returnObj.results.map(async (style) =>{
     const skus = await getSkus(style.style_id);
-    console.log(skus)
     style.skus = {};
     skus.forEach(sku=>{
       style.skus[sku.id] = {quantity: sku.quantity, size: sku.size}
@@ -88,7 +86,6 @@ async function getPhotos(styleId) {
 }
 async function getSkus(styleId) {
   const skus = await pool.query(`SELECT id, size, quantity FROM skus WHERE style_id=${styleId}`)
-  console.log(skus.rows)
   return skus.rows;
 }
 

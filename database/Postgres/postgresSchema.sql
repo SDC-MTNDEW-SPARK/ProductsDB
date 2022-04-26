@@ -17,6 +17,9 @@ CREATE TABLE IF NOT EXISTS Features (
       REFERENCES Products(id)
 );
 
+CREATE INDEX IF NOT EXISTS idx_features_product_id ON features(product_id);
+
+
 CREATE TABLE IF NOT EXISTS Styles (
   id SERIAL UNIQUE PRIMARY KEY NOT NULL,
   product_id INT NOT NULL,
@@ -29,6 +32,10 @@ CREATE TABLE IF NOT EXISTS Styles (
       REFERENCES Products(id)
 );
 
+CREATE INDEX IF NOT EXISTS idx_styles_product_id ON styles(product_id);
+
+
+
 CREATE TABLE IF NOT EXISTS Photos (
   id SERIAL UNIQUE PRIMARY KEY NOT NULL,
   style_id INT NOT NULL,
@@ -38,6 +45,9 @@ CREATE TABLE IF NOT EXISTS Photos (
     FOREIGN KEY(style_id)
       REFERENCES Styles(id)
 );
+
+-- CREATE INDEX IF NOT EXISTS idx_photos_style_id ON photos USING HASH (style_id);
+CREATE INDEX IF NOT EXISTS idx_photos_style_id ON photos(style_id);
 
 CREATE TABLE IF NOT EXISTS Skus (
   id SERIAL UNIQUE PRIMARY KEY NOT NULL,
@@ -49,6 +59,8 @@ CREATE TABLE IF NOT EXISTS Skus (
       REFERENCES Styles(id)
 );
 
+CREATE INDEX IF NOT EXISTS idx_skus_style_id ON skus(style_id);
+
 CREATE TABLE IF NOT EXISTS Related_Products (
   id SERIAL UNIQUE PRIMARY KEY NOT NULL,
   curr_prod_id INT NOT NULL,
@@ -57,3 +69,5 @@ CREATE TABLE IF NOT EXISTS Related_Products (
     FOREIGN KEY(curr_prod_id)
       REFERENCES Products(id)
 );
+
+CREATE INDEX IF NOT EXISTS idx_related_products_curr_prod_id ON Related_Products(curr_prod_id);
