@@ -12,7 +12,10 @@ app.get('/', (req, res) => {
 
 app.get('/products', db.getProducts);
 app.get('/products/:product_id', db.getCurrProduct);
-app.get('/products/:product_id/styles', db.getCurrProductStyles);
+app.get('/products/:product_id/styles', async (req, res) => {
+  const resObj = await db.getCurrProductStyles(req.params.product_id)
+  res.send(resObj);
+});
 app.get('/products/:product_id/related', db.getCurrProductRelated);
 
 
