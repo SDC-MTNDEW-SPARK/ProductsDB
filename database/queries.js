@@ -75,7 +75,6 @@ async function getCurrProductStyles (currProd) {
       style.skus[sku.id] = {quantity: sku.quantity, size: sku.size}
     })
   }));
-  returnObj.results
   // returnObj.results[0].photos = photos;
 
   return returnObj;
