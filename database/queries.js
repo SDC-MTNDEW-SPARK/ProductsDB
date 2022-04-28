@@ -1,7 +1,10 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'andychan',
-  database: 'productsdc'
+  host: '54.176.241.72',
+  port: '5432',
+  user: 'test_user',
+  password: 'testpassword',
+  database: 'productsdc',
 });
 
 const getProducts = (request, response) => {
