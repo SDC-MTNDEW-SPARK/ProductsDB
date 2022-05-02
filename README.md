@@ -28,7 +28,7 @@ Retrieve a list of products
 | Parameter | Type    | Description                                               |
 |-----------|---------|-----------------------------------------------------------|
 | page      | Integer | Selects the page of results to return. Default 1.         |
-| page_size | Integer | Specifies how many results per page to return. Default 10.|
+| count     | Integer | Specifies how many results per page to return. Default 5.|
 
 #### Response
 ```json
